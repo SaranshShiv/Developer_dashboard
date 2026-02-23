@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Developer Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>DevDash</h2>
+        <ul>
+            <li>Dashboard</li>
+            <li>Tasks</li>
+            <li>Progress</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <h1>Learning Dashboard</h1>
+
+        <!-- Add Task -->
+        <div class="task-input">
+            <input type="text" id="taskInput" placeholder="Add what you studied today...">
+            <button onclick="addTask()">Add</button>
+        </div>
+
+        <!-- Task List -->
+        <ul id="taskList"></ul>
+
+        <!-- Progress -->
+        <div class="progress">
+            <p id="progressText">0 of 0 completed</p>
+        </div>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
