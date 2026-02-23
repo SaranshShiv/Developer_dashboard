@@ -1,4 +1,8 @@
-let tasks = [];
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 function addTask() {
     const input = document.getElementById("taskInput");
@@ -12,6 +16,7 @@ function addTask() {
     };
 
     tasks.push(task);
+    saveTasks();
     input.value = "";
 
     renderTasks();
@@ -19,6 +24,7 @@ function addTask() {
 
 function toggleTask(index) {
     tasks[index].completed = !tasks[index].completed;
+    saveTasks();
     renderTasks();
 }
 
@@ -29,18 +35,34 @@ function renderTasks() {
     let completedCount = 0;
 
     tasks.forEach((task, index) => {
-        const li = document.createElement("li");
-        li.textContent = task.text;
+    const li = document.createElement("li");
 
-        if (task.completed) {
-            li.classList.add("completed");
-            completedCount++;
-        }
+    const span = document.createElement("span");
+    span.textContent = task.text;
 
-        li.onclick = () => toggleTask(index);
-        list.appendChild(li);
-    });
+    if (task.completed) {
+        span.classList.add("completed");
+        completedCount++;
+    }
+
+    span.onclick = () => toggleTask(index);
+
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "✕";
+    delBtn.style.marginLeft = "10px";
+
+    delBtn.onclick = () => {
+        tasks.splice(index, 1);
+        saveTasks();
+        renderTasks();
+    };
+
+    li.appendChild(span);
+    li.appendChild(delBtn);
+    list.appendChild(li);
+});
 
     document.getElementById("progressText").textContent =
         `${completedCount} of ${tasks.length} completed`;
 }
+renderTasks();
